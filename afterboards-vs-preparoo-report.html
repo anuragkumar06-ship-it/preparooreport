@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AfterBoards vs Preparoo — Competitive Intelligence Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ab-orange: #E8622A;
+  --ab-dark: #1A1A1A;
+  --prep-teal: #0D9488;
+  --prep-dark: #134E4A;
+  --bg: #F8F7F4;
+  --card: #FFFFFF;
+  --border: #E5E2DB;
+  --text: #2C2A27;
+  --muted: #8A8680;
+  --red: #DC2626;
+  --green: #16A34A;
+  --yellow: #CA8A04;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
+
+/* ========== COVER ========== */
+.cover {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: var(--ab-dark);
+  overflow: hidden;
+}
+
+.cover::before {
+  content: '';
+  position: absolute;
+  top: -200px; right: -200px;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(232,98,42,0.15) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.cover::after {
+  content: '';
+  position: absolute;
+  bottom: -200px; left: -100px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(13,148,136,0.12) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.cover-content {
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  padding: 60px 40px;
+}
+
+.cover-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 40px;
+}
+
+.cover-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(48px, 7vw, 96px);
+  color: #fff;
+  line-height: 1.05;
+  margin-bottom: 12px;
+}
+
+.cover-title .vs {
+  display: block;
+  font-style: italic;
+  font-size: 0.35em;
+  color: var(--muted);
+  margin: 16px 0;
+  letter-spacing: 6px;
+}
+
+.cover-title .ab { color: var(--ab-orange); }
+.cover-title .pr { color: var(--prep-teal); }
+
+.cover-sub {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: 22px;
+  color: #999;
+  margin-top: 32px;
+  max-width: 500px;
+  margin-left: auto; margin-right: auto;
+}
+
+.cover-meta {
+  margin-top: 60px;
+  display: flex;
+  gap: 48px;
+  justify-content: center;
+  font-size: 12px;
+  color: var(--muted);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.cover-meta span { letter-spacing: 1px; }
+.cover-meta strong { color: #ccc; display: block; margin-top: 4px; font-size: 13px; }
+
+/* ========== SECTIONS ========== */
+section { padding: 80px 0; }
+
+.section-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--ab-orange);
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(32px, 4vw, 52px);
+  line-height: 1.1;
+  margin-bottom: 20px;
+  color: var(--ab-dark);
+}
+
+.section-desc {
+  font-size: 17px;
+  color: var(--muted);
+  max-width: 640px;
+  margin-bottom: 48px;
+  line-height: 1.7;
+}
+
+/* ========== EXEC SUMMARY ========== */
+.exec-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  margin-bottom: 48px;
+}
+
+.exec-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.exec-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+
+.exec-card.orange::before { background: var(--ab-orange); }
+.exec-card.teal::before { background: var(--prep-teal); }
+.exec-card.red::before { background: var(--red); }
+.exec-card.yellow::before { background: var(--yellow); }
+
+.exec-card h3 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+.exec-card .stat {
+  font-family: 'Instrument Serif', serif;
+  font-size: 42px;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.exec-card p { font-size: 14px; color: var(--muted); line-height: 1.5; }
+
+/* ========== COMPARISON TABLE ========== */
+.comp-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--card);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  margin-bottom: 48px;
+}
+
+.comp-table thead th {
+  padding: 20px 24px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-align: left;
+  border-bottom: 2px solid var(--border);
+  background: #FAFAF8;
+}
+
+.comp-table thead th:nth-child(2) { color: var(--ab-orange); }
+.comp-table thead th:nth-child(3) { color: var(--prep-teal); }
+
+.comp-table tbody td {
+  padding: 16px 24px;
+  font-size: 14px;
+  border-bottom: 1px solid #F0EDE8;
+  vertical-align: top;
+}
+
+.comp-table tbody tr:last-child td { border-bottom: none; }
+
+.comp-table tbody td:first-child {
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--ab-dark);
+  min-width: 180px;
+}
+
+.comp-table .win { 
+  background: linear-gradient(90deg, rgba(22,163,74,0.06) 0%, transparent 100%);
+  font-weight: 600;
+  color: var(--green);
+}
+
+.comp-table .lose { color: var(--muted); }
+.comp-table .tie { color: var(--yellow); }
+
+.badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.badge-ab { background: rgba(232,98,42,0.1); color: var(--ab-orange); }
+.badge-pr { background: rgba(13,148,136,0.1); color: var(--prep-teal); }
+.badge-tie { background: rgba(202,138,4,0.1); color: var(--yellow); }
+.badge-none { background: rgba(220,38,38,0.1); color: var(--red); }
+
+/* ========== INSIGHT CALLOUT ========== */
+.insight {
+  background: var(--ab-dark);
+  border-radius: 20px;
+  padding: 48px;
+  margin: 48px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.insight::before {
+  content: '"';
+  font-family: 'Instrument Serif', serif;
+  font-size: 200px;
+  color: rgba(255,255,255,0.04);
+  position: absolute;
+  top: -40px; left: 20px;
+  line-height: 1;
+}
+
+.insight-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--ab-orange);
+  margin-bottom: 16px;
+}
+
+.insight-text {
+  font-family: 'Instrument Serif', serif;
+  font-size: 26px;
+  color: #fff;
+  line-height: 1.45;
+  max-width: 800px;
+}
+
+.insight-text em { color: var(--ab-orange); font-style: normal; }
+
+/* ========== PRICING VISUAL ========== */
+.pricing-compare {
+  display: grid;
+  grid-template-columns: 1fr 80px 1fr;
+  gap: 0;
+  align-items: center;
+  margin: 48px 0;
+}
+
+.price-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 40px;
+  text-align: center;
+}
+
+.price-card.ab-card { border-top: 4px solid var(--ab-orange); }
+.price-card.pr-card { border-top: 4px solid var(--prep-teal); }
+
+.price-card .brand {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.ab-card .brand { color: var(--ab-orange); }
+.pr-card .brand { color: var(--prep-teal); }
+
+.price-card .amount {
+  font-family: 'Instrument Serif', serif;
+  font-size: 56px;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.price-card .for {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+
+.price-card ul {
+  list-style: none;
+  text-align: left;
+  font-size: 13px;
+  line-height: 2;
+}
+
+.price-card ul li::before { content: '→ '; color: var(--muted); }
+
+.vs-circle {
+  width: 56px; height: 56px;
+  background: var(--ab-dark);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  color: #fff;
+  font-size: 18px;
+}
+
+/* ========== TEAM ========== */
+.team-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin: 48px 0;
+}
+
+.team-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px;
+}
+
+.team-card h4 {
+  font-family: 'Instrument Serif', serif;
+  font-size: 22px;
+  margin-bottom: 4px;
+}
+
+.team-card .role {
+  font-size: 12px;
+  color: var(--muted);
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 1px;
+  margin-bottom: 16px;
+}
+
+.team-card ul {
+  list-style: none;
+  font-size: 13px;
+  line-height: 1.9;
+}
+
+.team-card ul li::before {
+  content: '◆ ';
+  font-size: 8px;
+  vertical-align: middle;
+}
+
+/* ========== THREAT METER ========== */
+.threat-bar-wrap {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px;
+  margin: 20px 0;
+}
+
+.threat-bar-label {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.threat-bar {
+  height: 10px;
+  background: #F0EDE8;
+  border-radius: 100px;
+  overflow: hidden;
+}
+
+.threat-bar-fill {
+  height: 100%;
+  border-radius: 100px;
+  transition: width 1.5s ease;
+}
+
+.threat-bar-fill.high { background: linear-gradient(90deg, var(--red), #EF4444); }
+.threat-bar-fill.med { background: linear-gradient(90deg, var(--yellow), #EAB308); }
+.threat-bar-fill.low { background: linear-gradient(90deg, var(--green), #22C55E); }
+
+/* ========== FEATURE LIST ========== */
+.feat-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin: 48px 0;
+}
+
+.feat-col {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px;
+}
+
+.feat-col h3 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--border);
+}
+
+.feat-col.ab h3 { color: var(--ab-orange); border-color: var(--ab-orange); }
+.feat-col.pr h3 { color: var(--prep-teal); border-color: var(--prep-teal); }
+
+.feat-col ul {
+  list-style: none;
+  font-size: 14px;
+  line-height: 2.2;
+}
+
+.feat-col ul li::before { content: '✦ '; opacity: 0.4; }
+.feat-col ul li.unique::before { content: '★ '; color: var(--ab-orange); opacity: 1; }
+.feat-col.pr ul li.unique::before { color: var(--prep-teal); }
+
+/* ========== FOOTER ========== */
+.report-footer {
+  background: var(--ab-dark);
+  padding: 60px 0;
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.report-footer .sig {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: 18px;
+  color: #fff;
+  margin-bottom: 8px;
+}
+
+/* ========== DIVIDER ========== */
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: 0;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+  .container { padding: 0 20px; }
+  .pricing-compare { grid-template-columns: 1fr; }
+  .vs-circle { margin: 16px auto; }
+  .team-grid, .feat-split { grid-template-columns: 1fr; }
+  .exec-grid { grid-template-columns: 1fr; }
+  .cover-meta { flex-direction: column; gap: 20px; }
+  .comp-table { font-size: 12px; }
+  .comp-table thead th, .comp-table tbody td { padding: 12px 14px; }
+}
+
+@media print {
+  .cover { min-height: auto; padding: 80px 0; }
+  section { padding: 40px 0; }
+  .insight { background: #333; }
+}
+</style>
+</head>
+<body>
+
+<!-- ========== COVER ========== -->
+<div class="cover">
+  <div class="cover-content">
+    <div class="cover-eyebrow">Competitive Intelligence Report · April 2026</div>
+    <h1 class="cover-title">
+      <span class="ab">AfterBoards</span>
+      <span class="vs">versus</span>
+      <span class="pr">Preparoo</span>
+    </h1>
+    <p class="cover-sub">A data-driven analysis of the IPMAT & CUET preparation market — scraped live across Instagram, YouTube, and both platforms.</p>
+    <div class="cover-meta">
+      <span>PREPARED BY<strong>Anurag Kumar & Veer Kolamkar</strong></span>
+      <span>INSTITUTION<strong>IIM Jammu · IPM Batch 05</strong></span>
+      <span>DATA SOURCE<strong>Apify · Live Scraped · Mar 31, 2026</strong></span>
+    </div>
+  </div>
+</div>
+
+<!-- ========== 01 · EXECUTIVE SUMMARY ========== -->
+<section>
+  <div class="container">
+    <div class="section-num">01 — Executive Summary</div>
+    <h2 class="section-title">The Clone That's<br>Moving Faster</h2>
+    <p class="section-desc">Preparoo entered the IPMAT/CUET market after AfterBoards, adopted nearly identical features, undercut pricing by 40%, expanded to 3x more exam coverage, and is growing faster on social media with a fraction of the content.</p>
+
+    <div class="exec-grid">
+      <div class="exec-card red">
+        <h3>Price Gap</h3>
+        <div class="stat" style="color:var(--red)">₹3,694</div>
+        <p>Cheaper for CUET + IPMAT combined. Preparoo offers everything at ₹5,499 vs AfterBoards' ₹9,193 equivalent.</p>
+      </div>
+      <div class="exec-card teal">
+        <h3>CUET Subject Coverage</h3>
+        <div class="stat" style="color:var(--prep-teal)">14 vs 6</div>
+        <p>Preparoo covers Commerce, Science & Humanities. AfterBoards covers Commerce only — zero Science or Humanities subjects.</p>
+      </div>
+      <div class="exec-card orange">
+        <h3>Instagram Efficiency</h3>
+        <div class="stat" style="color:var(--ab-orange)">17 posts</div>
+        <p>Preparoo UG hit 12,961 followers and 272K Reel views with just 17 posts. AfterBoards has 56+ posts with lower per-post engagement.</p>
+      </div>
+      <div class="exec-card yellow">
+        <h3>Build Speed</h3>
+        <div class="stat" style="color:var(--yellow)">1 week</div>
+        <p>Preparoo UG was conceptualized and executed in under one week — per founder Kushagra's LinkedIn post. Platform play, not a startup.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ========== 02 · PLATFORM OVERVIEW ========== -->
+<section>
+  <div class="container">
+    <div class="section-num">02 — Platform Overview</div>
+    <h2 class="section-title">Two Platforms,<br>Same Blueprint</h2>
+    <p class="section-desc">Both platforms offer mock tests, PYQs, analytics, and flashcards for IPMAT and CUET. But the scale, pricing, and strategy diverge sharply.</p>
+
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>Attribute</th>
+          <th>AfterBoards</th>
+          <th>Preparoo UG</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Founded By</td>
+          <td>Bhavesh Shaha<br><span style="font-size:12px;color:var(--muted)">IIM Ranchi (left for entrepreneurship)</span></td>
+          <td>Kushagra Sachdeva & Sajag Prakash<br><span style="font-size:12px;color:var(--muted)">IIM Ahmedabad alumni · McKinsey · AIR 13</span></td>
+        </tr>
+        <tr>
+          <td>Platform URL</td>
+          <td>afterboards.in</td>
+          <td>ug.preparoo.app</td>
+        </tr>
+        <tr>
+          <td>Exams Covered</td>
+          <td>IPMAT · JIPMAT · IIM-B · CUET</td>
+          <td>IPMAT · JIPMAT · CUET · CLAT</td>
+        </tr>
+        <tr>
+          <td>Native App</td>
+          <td class="win">✓ Google Play (Android)</td>
+          <td class="lose">✗ Web-only</td>
+        </tr>
+        <tr>
+          <td>Parent Product</td>
+          <td>Standalone (AfterGrad for CAT)</td>
+          <td>Vertical of preparoo.app (CAT platform)</td>
+        </tr>
+        <tr>
+          <td>Strategy</td>
+          <td>Deep IPMAT-first, CUET as add-on</td>
+          <td>Horizontal platform — exams as verticals</td>
+        </tr>
+        <tr>
+          <td>Company</td>
+          <td>Guru Oranges AfterTech Pvt. Ltd.</td>
+          <td>Preparoo (IIM-A alumni venture)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ========== 03 · IPMAT COMPARISON ========== -->
+<section>
+  <div class="container">
+    <div class="section-num">03 — IPMAT Comparison</div>
+    <h2 class="section-title">AfterBoards Still<br>Owns IPMAT Depth</h2>
+    <p class="section-desc">In raw mock volume and IPMAT-specific features, AfterBoards maintains a significant lead. Preparoo is catching up with sectionals and video content.</p>
+
+    <table class="comp-table">
+      <thead>
+        <tr><th>IPMAT Feature</th><th>AfterBoards</th><th>Preparoo UG</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>IPMAT Indore Mocks</td>
+          <td class="win">25 (All Access) <span class="badge badge-ab">WINS</span></td>
+          <td>10</td>
+        </tr>
+        <tr>
+          <td>IPMAT Rohtak Mocks</td>
+          <td class="win">25 <span class="badge badge-ab">WINS</span></td>
+          <td>10</td>
+        </tr>
+        <tr>
+          <td>JIPMAT Mocks</td>
+          <td class="win">25 <span class="badge badge-ab">WINS</span></td>
+          <td>10</td>
+        </tr>
+        <tr>
+          <td>IIM-B (BBA DBE)</td>
+          <td class="win">10 <span class="badge badge-ab">EXCLUSIVE</span></td>
+          <td class="lose">Not available</td>
+        </tr>
+        <tr>
+          <td>Sectional Tests</td>
+          <td>Unlimited (adaptive)</td>
+          <td class="win">60 structured <span class="badge badge-pr">STRUCTURED</span></td>
+        </tr>
+        <tr>
+          <td>Topic Test Questions</td>
+          <td>Adaptive (count unclear)</td>
+          <td class="win">4,500+ <span class="badge badge-pr">WINS</span></td>
+        </tr>
+        <tr>
+          <td>Adaptive Difficulty</td>
+          <td class="win">✓ Built-in <span class="badge badge-ab">UNIQUE</span></td>
+          <td class="lose">✗</td>
+        </tr>
+        <tr>
+          <td>Gamification</td>
+          <td class="win">Word Battle · Factor Farm · Crossword <span class="badge badge-ab">UNIQUE</span></td>
+          <td class="lose">None</td>
+        </tr>
+        <tr>
+          <td>Video Lectures</td>
+          <td>Available (Pro plan)</td>
+          <td>CAT crash course recordings repurposed</td>
+        </tr>
+        <tr>
+          <td>Vocab Flashcards</td>
+          <td>Word List + Phrasal Verbs</td>
+          <td class="win">2,800+ with root words & spaced repetition</td>
+        </tr>
+        <tr>
+          <td>Total IPMAT Mocks</td>
+          <td class="win"><strong>85</strong> <span class="badge badge-ab">2.8x MORE</span></td>
+          <td><strong>30</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ========== 04 · CUET COMPARISON ========== -->
+<section>
+  <div class="container">
+    <div class="section-num">04 — CUET Deep Dive</div>
+    <h2 class="section-title">Preparoo Is<br>Dominating CUET</h2>
+    <p class="section-desc">This is where the competitive threat becomes critical. Preparoo covers all three CUET streams with dramatically more content at a lower price.</p>
+
+    <table class="comp-table">
+      <thead>
+        <tr><th>CUET Subject</th><th>AfterBoards</th><th>Preparoo UG</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Mathematics</td><td>11 mocks</td><td class="win">20 mocks <span class="badge badge-pr">+82%</span></td></tr>
+        <tr><td>English</td><td class="win">25 mocks <span class="badge badge-ab">2.5x</span></td><td>10 mocks</td></tr>
+        <tr><td>Accountancy</td><td>11 mocks</td><td class="win">20 mocks <span class="badge badge-pr">+82%</span></td></tr>
+        <tr><td>Business Studies</td><td>11 mocks</td><td class="win">20 mocks <span class="badge badge-pr">+82%</span></td></tr>
+        <tr><td>Economics</td><td>11 mocks</td><td class="win">20 mocks <span class="badge badge-pr">+82%</span></td></tr>
+        <tr><td>General Test</td><td>10 mocks</td><td class="tie">10 mocks <span class="badge badge-tie">TIE</span></td></tr>
+        <tr><td>Physics</td><td class="lose"><span class="badge badge-none">NONE</span></td><td class="win">Available</td></tr>
+        <tr><td>Chemistry</td><td class="lose"><span class="badge badge-none">NONE</span></td><td class="win">Available</td></tr>
+        <tr><td>Biology</td><td class="lose"><span class="badge badge-none">NONE</span></td><td class="win">Available</td></tr>
+        <tr><td>History</td><td class="lose"><span class="badge badge-none">NONE</span></td><td class="win">Available</td></tr>
+        <tr><td>Political Science</td><td class="lose"><span class="badge badge-none">NONE</span></td><td class="win">Available</td></tr>
+        <tr><td>Geography</td><td class="lose"><span class="badge badge-none">NONE</span></td><td class="win">Available</td></tr>
+        <tr><td>Psychology</td><td class="lose"><span class="badge badge-none">NONE</span></td><td class="win">Available</td></tr>
+        <tr><td>Sociology</td><td class="lose"><span class="badge badge-none">NONE</span></td><td class="win">Available</td></tr>
+        <tr><td>Chapter-wise MCQs</td><td class="lose">Not available</td><td class="win">8,000+</td></tr>
+        <tr><td>NCERT Flashcards</td><td class="lose">Not available</td><td class="win">7,300+</td></tr>
+        <tr><td>NCERT Notes</td><td class="lose">Not available</td><td class="win">All subjects</td></tr>
+        <tr style="background:#FAFAF8"><td><strong>Commerce Mocks Total</strong></td><td><strong>79</strong></td><td class="win"><strong>100</strong></td></tr>
+        <tr style="background:#FAFAF8"><td><strong>Total Subjects</strong></td><td><strong>6</strong></td><td class="win"><strong>14 <span class="badge badge-pr">2.3x</span></strong></td></tr>
+      </tbody>
+    </table>
+
+    <div class="insight">
+      <div class="insight-label">Key Finding</div>
+      <p class="insight-text">AfterBoards' only CUET subject advantage is <em>English (25 vs 10 mocks)</em>. In every other Commerce subject, Preparoo has nearly double the mocks. And for the <em>8 Science & Humanities subjects</em>, AfterBoards has literally zero — meaning any non-Commerce CUET student has no reason to even consider AfterBoards.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ========== 05 · PRICING ========== -->
+<section>
+  <div class="container">
+    <div class="section-num">05 — Pricing Comparison</div>
+    <h2 class="section-title">The ₹3,694<br>Problem</h2>
+    <p class="section-desc">A student preparing for both IPMAT and CUET pays 40% more at AfterBoards and gets less CUET content — no NCERT notes, no chapter-wise questions, no Science or Humanities coverage.</p>
+
+    <div class="pricing-compare">
+      <div class="price-card ab-card">
+        <div class="brand">AfterBoards</div>
+        <div class="amount">₹9,193</div>
+        <div class="for">IPMAT All Access + CUET (6 subjects)</div>
+        <ul>
+          <li>₹7,999 for IPMAT All Access (85 mocks)</li>
+          <li>₹1,194 for 6 CUET subjects (₹199 each)</li>
+          <li>79 CUET mocks · Commerce only</li>
+          <li>No NCERT notes or chapter-wise questions</li>
+          <li>Gamification, forums, eligibility tools</li>
+        </ul>
+      </div>
+      <div class="vs-circle">vs</div>
+      <div class="price-card pr-card">
+        <div class="brand">Preparoo UG</div>
+        <div class="amount">₹5,499</div>
+        <div class="for">CUET + IPMAT All Access (one price)</div>
+        <ul>
+          <li>30 IPMAT mocks + 60 sectionals</li>
+          <li>100 CUET mocks · All 3 streams (14 subjects)</li>
+          <li>8,000+ chapter-wise MCQs</li>
+          <li>7,300+ NCERT flashcards + notes</li>
+          <li>Video lectures + AI chatbot</li>
+        </ul>
+      </div>
+    </div>
+
+    <table class="comp-table">
+      <thead><tr><th>Plan</th><th>AfterBoards</th><th>Preparoo UG</th></tr></thead>
+      <tbody>
+        <tr><td>IPMAT-only entry price</td><td class="win">₹3,499 (10 mocks)</td><td>₹4,999 (30 mocks)</td></tr>
+        <tr><td>IPMAT full volume</td><td>₹7,999 (85 mocks)</td><td>₹4,999 (30 + 60 sectionals)</td></tr>
+        <tr><td>CUET per subject</td><td class="win">₹199 <span class="badge badge-ab">CHEAPEST</span></td><td>₹999</td></tr>
+        <tr><td>CUET bundle (5 subjects)</td><td>~₹995</td><td>₹2,999 (with extras)</td></tr>
+        <tr><td>CUET + IPMAT combined</td><td>~₹9,193</td><td class="win">₹5,499 <span class="badge badge-pr">40% LESS</span></td></tr>
+        <tr><td>Free tier</td><td class="win">1 mock per exam + PYPs + forums + daily RC</td><td>Free PYQs + NCERT notes + 2,000 MCQs</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ========== 06 · UNIQUE FEATURES ========== -->
+<section>
+  <div class="container">
+    <div class="section-num">06 — Unique Features</div>
+    <h2 class="section-title">What Each Platform<br>Has That the Other Doesn't</h2>
+
+    <div class="feat-split">
+      <div class="feat-col ab">
+        <h3>AfterBoards Exclusives</h3>
+        <ul>
+          <li class="unique">Adaptive topic tests (AI-difficulty)</li>
+          <li class="unique">Word Battle (competitive vocab game)</li>
+          <li class="unique">Factor Farm (multiplication game)</li>
+          <li class="unique">Crossword puzzles (vocab)</li>
+          <li class="unique">Community forums (peer doubt solving)</li>
+          <li class="unique">IPM Eligibility Checker (10th/12th marks → colleges)</li>
+          <li class="unique">IIM Cutoff Data (historical)</li>
+          <li class="unique">PYP Analyser (filter by topic/difficulty/year)</li>
+          <li class="unique">Loan Calculator for IIMs</li>
+          <li class="unique">IIM Financing Guide</li>
+          <li class="unique">Daily RC (free daily reading comprehension)</li>
+          <li class="unique">DILR of the Week</li>
+          <li class="unique">Inline Word Define (look up words mid-test)</li>
+          <li class="unique">IIM-B BBA DBE mocks (exclusive exam)</li>
+          <li class="unique">Native Android app</li>
+          <li class="unique">CUET DU Course Eligibility tool</li>
+          <li class="unique">Leaderboard (competitive ranking)</li>
+        </ul>
+      </div>
+      <div class="feat-col pr">
+        <h3>Preparoo UG Exclusives</h3>
+        <ul>
+          <li class="unique">NCERT-based learning notes (all subjects)</li>
+          <li class="unique">7,300+ NCERT flashcards (58 chapters)</li>
+          <li class="unique">8,000+ chapter-wise MCQs</li>
+          <li class="unique">Root word breakdowns in vocab cards</li>
+          <li class="unique">AI Chatbot doubt solver ("UG Prep Buddy")</li>
+          <li class="unique">Spaced repetition system (flashcards)</li>
+          <li class="unique">Science stream coverage (Phy/Chem/Bio)</li>
+          <li class="unique">Humanities stream coverage (5 subjects)</li>
+          <li class="unique">CLAT past year papers</li>
+          <li class="unique">Video lectures by 5× CAT 99.99%iler</li>
+          <li class="unique">GDPI mentorship program (CAT side)</li>
+          <li class="unique">fin.preparoo.app (finance vertical expansion)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="insight">
+      <div class="insight-label">The Pattern</div>
+      <p class="insight-text">AfterBoards' moat is <em>student lifecycle tools</em> — eligibility, cutoffs, loans, financing, forums, gamification. These keep students inside the ecosystem beyond just mock tests. Preparoo's moat is <em>content volume and learning infrastructure</em> — NCERT integration, chapter-wise practice, and AI-powered study. Two different bets on what students value more.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ========== 07 · SOCIAL MEDIA ========== -->
+<section>
+  <div class="container">
+    <div class="section-num">07 — Social Media & Growth</div>
+    <h2 class="section-title">17 Posts.<br>272K Views.</h2>
+    <p class="section-desc">Preparoo UG's Instagram growth is outpacing AfterBoards with a fraction of the content, driven by comment-gating strategy and a strong creator face.</p>
+
+    <table class="comp-table">
+      <thead><tr><th>Social Metric</th><th>AfterBoards</th><th>Preparoo UG</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Instagram Followers</td>
+          <td>~9,543 (@after.boards)</td>
+          <td class="win">12,961 (@preparoo.ug) <span class="badge badge-pr">+36%</span></td>
+        </tr>
+        <tr>
+          <td>Instagram Posts</td>
+          <td>56</td>
+          <td class="win">17 (3.3× more efficient) <span class="badge badge-pr">EFFICIENT</span></td>
+        </tr>
+        <tr>
+          <td>Top Reel Views</td>
+          <td>~5K–15K</td>
+          <td class="win">272,541 views <span class="badge badge-pr">18x MORE</span></td>
+        </tr>
+        <tr>
+          <td>Top Reel Likes</td>
+          <td>~800–5K</td>
+          <td class="win">11,691 likes</td>
+        </tr>
+        <tr>
+          <td>Top Post Comments</td>
+          <td>~100–5,866</td>
+          <td class="win">8,058 (comment-gated)</td>
+        </tr>
+        <tr>
+          <td>YouTube Subscribers</td>
+          <td class="win">25,200+ (@AfterBoards) <span class="badge badge-ab">EXCLUSIVE</span></td>
+          <td class="lose">Does not exist (404)</td>
+        </tr>
+        <tr>
+          <td>YouTube Videos</td>
+          <td class="win">57+ (active, 1-3 day cadence)</td>
+          <td class="lose">Zero</td>
+        </tr>
+        <tr>
+          <td>Creator Face</td>
+          <td>@basicallybhavesh (7.6K, disconnected)</td>
+          <td class="win">@bhaavyataneja (tagged in every post, integrated)</td>
+        </tr>
+        <tr>
+          <td>Founder IG Following</td>
+          <td>7,507 (follow-back inflated)</td>
+          <td class="win">3 following (organic growth)</td>
+        </tr>
+        <tr>
+          <td>Growth Strategy</td>
+          <td>Organic, varied content</td>
+          <td class="win">Comment-gating ("Comment GAT for guide")</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ========== 08 · TEAM & CREDIBILITY ========== -->
+<section>
+  <div class="container">
+    <div class="section-num">08 — Team & Credibility</div>
+    <h2 class="section-title">Solo Founder vs.<br>Elite Squad</h2>
+
+    <div class="team-grid">
+      <div class="team-card" style="border-top: 3px solid var(--ab-orange)">
+        <h4>Bhavesh Shaha</h4>
+        <div class="role">AfterBoards · Founder</div>
+        <ul>
+          <li>IIM Ranchi IPM (left for entrepreneurship)</li>
+          <li>TEDx speaker · WHO consultant</li>
+          <li>IIM-A case study written about AfterBoards</li>
+          <li>5 speaking events in 2025</li>
+          <li>Solo founder / small team</li>
+        </ul>
+      </div>
+      <div class="team-card" style="border-top: 3px solid var(--prep-teal)">
+        <h4>Kushagra Sachdeva</h4>
+        <div class="role">Preparoo · Co-Founder</div>
+        <ul>
+          <li>McKinsey & Company</li>
+          <li>IIM Ahmedabad '25 (Institute Rank 7)</li>
+          <li>Bain & Company (PPO)</li>
+          <li>SSCBS '23 (Institute Rank 4)</li>
+          <li>CAT '22: 99.96%ile · VARC: 100%ile</li>
+        </ul>
+      </div>
+      <div class="team-card" style="border-top: 3px solid var(--prep-teal)">
+        <h4>Sajag Prakash</h4>
+        <div class="role">Preparoo · Co-Founder</div>
+        <ul>
+          <li>IIM Ahmedabad PGP 2024</li>
+          <li>IPMAT Indore AIR 13</li>
+          <li>IIIT Delhi '22 (Computer Science)</li>
+          <li>CAT '21: 99.88%ile · QA: 99.92%ile</li>
+          <li>Associate Manager Strategy, Newgen Software</li>
+        </ul>
+      </div>
+      <div class="team-card" style="border-top: 3px solid var(--prep-teal)">
+        <h4>Devraj Pant</h4>
+        <div class="role">Preparoo · Growth & Content</div>
+        <ul>
+          <li>CFA Level I qualified</li>
+          <li>Hit 100K on Instagram (content creation)</li>
+          <li>Building fin.preparoo.app (finance vertical)</li>
+          <li>Brand partnerships & growth hacking</li>
+          <li>Dhanashree Wealth Pvt Ltd.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ========== 09 · THREAT ASSESSMENT ========== -->
+<section>
+  <div class="container">
+    <div class="section-num">09 — Threat Assessment</div>
+    <h2 class="section-title">Where AfterBoards<br>Is Vulnerable</h2>
+
+    <div class="threat-bar-wrap">
+      <div class="threat-bar-label"><span>CUET Market Share</span><span style="color:var(--red)">CRITICAL</span></div>
+      <div class="threat-bar"><div class="threat-bar-fill high" style="width:90%"></div></div>
+    </div>
+    <div class="threat-bar-wrap">
+      <div class="threat-bar-label"><span>Pricing Competitiveness</span><span style="color:var(--red)">HIGH</span></div>
+      <div class="threat-bar"><div class="threat-bar-fill high" style="width:80%"></div></div>
+    </div>
+    <div class="threat-bar-wrap">
+      <div class="threat-bar-label"><span>Instagram Growth Momentum</span><span style="color:var(--red)">HIGH</span></div>
+      <div class="threat-bar"><div class="threat-bar-fill high" style="width:75%"></div></div>
+    </div>
+    <div class="threat-bar-wrap">
+      <div class="threat-bar-label"><span>Content Volume (CUET)</span><span style="color:var(--yellow)">MODERATE-HIGH</span></div>
+      <div class="threat-bar"><div class="threat-bar-fill med" style="width:70%"></div></div>
+    </div>
+    <div class="threat-bar-wrap">
+      <div class="threat-bar-label"><span>IPMAT Market Position</span><span style="color:var(--green)">LOW</span></div>
+      <div class="threat-bar"><div class="threat-bar-fill low" style="width:25%"></div></div>
+    </div>
+    <div class="threat-bar-wrap">
+      <div class="threat-bar-label"><span>YouTube Presence</span><span style="color:var(--green)">MINIMAL</span></div>
+      <div class="threat-bar"><div class="threat-bar-fill low" style="width:10%"></div></div>
+    </div>
+    <div class="threat-bar-wrap">
+      <div class="threat-bar-label"><span>Gamification & Community</span><span style="color:var(--green)">NONE</span></div>
+      <div class="threat-bar"><div class="threat-bar-fill low" style="width:5%"></div></div>
+    </div>
+
+    <div class="insight">
+      <div class="insight-label">Strategic Reality</div>
+      <p class="insight-text">Preparoo is not just a feature clone — it's a <em>platform play backed by McKinsey-trained operators</em> who built the UG product in one week, are expanding into finance, and treat each exam as a vertical on shared infrastructure. AfterBoards' deepest moats — gamification, community forums, eligibility tools, and YouTube — are real but narrow. The CUET market is already lost without immediate action on Science/Humanities coverage.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ========== 10 · WHAT AFTERBOARDS MUST DEFEND ========== -->
+<section>
+  <div class="container">
+    <div class="section-num">10 — Defensive Moats</div>
+    <h2 class="section-title">What AfterBoards<br>Must Protect</h2>
+
+    <div class="exec-grid">
+      <div class="exec-card orange">
+        <h3>IPMAT Mock Depth</h3>
+        <div class="stat" style="color:var(--ab-orange);font-size:32px">85 mocks</div>
+        <p>Nearly 3x Preparoo's IPMAT volume. This is the core product — must keep expanding and maintaining quality.</p>
+      </div>
+      <div class="exec-card orange">
+        <h3>YouTube (25.2K subs)</h3>
+        <div class="stat" style="color:var(--ab-orange);font-size:32px">57+ videos</div>
+        <p>Preparoo has zero YouTube presence. This channel is untouchable right now — it should be leveraged aggressively.</p>
+      </div>
+      <div class="exec-card orange">
+        <h3>Student Lifecycle Tools</h3>
+        <div class="stat" style="color:var(--ab-orange);font-size:24px">Eligibility · Cutoffs · Loans</div>
+        <p>No competitor has built this ecosystem. These tools create stickiness beyond mock tests.</p>
+      </div>
+      <div class="exec-card orange">
+        <h3>Gamification Layer</h3>
+        <div class="stat" style="color:var(--ab-orange);font-size:24px">Word Battle · Factor Farm</div>
+        <p>Preparoo has zero gamification. This is a genuine differentiator that drives daily engagement and retention.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<div class="report-footer">
+  <div class="container">
+    <p class="sig">Anurag Kumar & Veer Kolamkar</p>
+    <p>IPM Batch 05 · IIM Jammu · April 2026</p>
+    <p style="margin-top:20px;font-size:11px;opacity:0.5">All data scraped live via Apify across Instagram, YouTube, and both platforms · March 31, 2026</p>
+  </div>
+</div>
+
+</body>
+</html>
